@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour //classe base da unity
     // variavel
     public float speed = 1;
 
+    //ublic AudioSource pop;
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _pickupMusic;
+
     public TextMeshProUGUI pointsText;
     public GameObject winText;
     public int totalPoints;
@@ -35,6 +39,8 @@ public class PlayerController : MonoBehaviour //classe base da unity
         SetPointsText();
         winText.SetActive(false);
         timeRemaining = startTime;
+
+       //op = GetComponent<AudioSource>();
 
     }
 
@@ -69,7 +75,15 @@ public class PlayerController : MonoBehaviour //classe base da unity
             SetPointsText();
             other.gameObject.SetActive(false);
             Debug.Log(points);
+
+            //p.Play();
+            _source.PlayOneShot(_pickupMusic);
         }
+        if (other.gameObject.CompareTag("foguete"))
+        {
+            SceneManager.LoadScene("gameover");
+        }
+
     }
 
     void SetPointsText()
